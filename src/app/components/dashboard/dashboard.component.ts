@@ -18,10 +18,7 @@ export class DashboardComponent implements OnInit{
   }
 
   getHeroes() {
-    this.heroService.getHeroes().subscribe({
-        next: heroes => this.heroes = heroes.slice(1, 5),
-        error: error => console.log(error)
-      });
+    this.heroService.getHeroes().subscribe(heroes => this.heroes = heroes.slice(1, 5));
   }
 
 }
