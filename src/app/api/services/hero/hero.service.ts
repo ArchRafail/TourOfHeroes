@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Hero } from "../../models/hero";
-import { catchError, delay, map, Observable, of, tap } from "rxjs";
+import { catchError, delay, Observable, of, tap } from "rxjs";
 import { MessageService } from "../message/message.service";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
@@ -25,20 +25,6 @@ export class HeroService {
         delay(Math.random() * (2000 - 1000) + 1000),
         tap(_ => this.log('fetched heroes')),
         catchError(this.handleError<Hero[]>('getHeroes', []))
-      );
-  }
-
-  getHeroNo404<Data>(id: number): Observable<Hero> {
-    const url = `${this.heroesUrl}/?id=${id}`;
-    return this.http.get<Hero[]>(url)
-      .pipe(
-        delay(Math.random() * (2000 - 1000) + 1000),
-        map(heroes => heroes[0]),
-        tap(h => {
-          const outcome = h ? 'fetched' : 'did not find';
-          this.log(`${outcome} hero id=${id}`);
-        }),
-        catchError(this.handleError<Hero>(`getHero id=${id}`))
       );
   }
 
@@ -84,7 +70,7 @@ export class HeroService {
     if (!term.trim()) { return of([]); }
     return this.http.get<Hero[]>(`${this.heroesUrl}/?name=${term}`)
       .pipe(
-        delay(Math.random() * (2000 - 1000) + 1000),
+        delay(Math.random() * (1000 - 500) + 500),
         tap(x => x.length ?
           this.log(`found heroes matching "${term}"`) :
           this.log(`no heroes matching "${term}"`)),
