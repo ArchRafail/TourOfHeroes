@@ -1,4 +1,8 @@
 :host {
+  .heroes-title {
+    margin-top: 24px;
+  }
+
   input {
     display: block;
     width: 18em;
@@ -20,8 +24,8 @@
 
   button.delete {
     position: absolute;
-    left: 210px;
-    top: 5px;
+    left: 185px;
+    top: 3px;
     background-color: white;
     color: #525252;
     font-size: 1.1rem;

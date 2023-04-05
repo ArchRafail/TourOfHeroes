@@ -16,19 +16,31 @@ h3 {
   font-size: 1.3rem;
 }
 
-body {
+.mat-typography {
   padding: .5rem;
   max-width: 800px;
   margin: auto;
 }
 
+.mat-spinner-container {
+  margin: 36px auto;
+
+  mat-spinner {
+    margin-left: 30px;
+  }
+
+  .spinner-text {
+    margin: 6px 0;
+  }
+}
+
 @media (min-width: 600px) {
-  body {
+  .mat-typography {
     padding: 2rem;
   }
 }
 
-body, input[text] {
+.mat-typography, input[text] {
   color: #333;
   font-family: Cambria, Georgia, serif;
 }
@@ -91,3 +103,6 @@ input[type="text"] {
   width: 100%;
   padding: .5rem;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Hero } from "../../api/models/hero";
 import { ActivatedRoute } from "@angular/router";
 import { HeroService } from "../../api/services/hero/hero.service";
 import { Location } from "@angular/common";
+import { finalize, Subject, takeUntil } from "rxjs";
 
 
 @Component({
@@ -10,8 +11,12 @@ import { Location } from "@angular/common";
   templateUrl: './hero-detail.component.html',
   styleUrls: ['./hero-detail.component.scss']
 })
-export class HeroDetailComponent implements OnInit {
+export class HeroDetailComponent implements OnInit, OnDestroy {
+  private readonly destroyed$: Subject<void> = new Subject<void>();
   hero: Hero | undefined;
+  loading: boolean = false;
+  saving: boolean = false;
+  saveDisabled: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -23,9 +28,19 @@ export class HeroDetailComponent implements OnInit {
     this.getHero();
   }
 
+  ngOnDestroy() {
+    this.destroyed$.next();
+    this.destroyed$.complete();
+  }
+
   getHero() {
+    this.loading = true;
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.heroService.getHero(id).subscribe(hero => this.hero = hero);
+    this.heroService.getHero(id)
+      .pipe(
+        finalize(() => this.loading = false),
+        takeUntil(this.destroyed$))
+      .subscribe(hero => this.hero = hero);
   }
 
   goBack() {
@@ -34,7 +49,13 @@ export class HeroDetailComponent implements OnInit {
 
   save() {
     if (this.hero) {
-      this.heroService.updateHero(this.hero).subscribe(() => this.goBack());
+      this.saveDisabled = true;
+      this.saving = true;
+      this.heroService.updateHero(this.hero)
+        .pipe(
+          finalize(() => this.saving = false),
+          takeUntil(this.destroyed$))
+        .subscribe(() => this.goBack());
     }
   }
 }

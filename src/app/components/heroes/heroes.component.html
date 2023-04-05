@@ -1,21 +1,33 @@
-<h2>My Heroes</h2>
+<h2 class="heroes-title">My Heroes</h2>
 
-<div>
+<div *ngIf="!saving">
   <label for="new-hero">Hero name: </label>
   <input id="new-hero" #heroName />
-
   <button type="button" class="add-button" (click)="add(heroName.value); heroName.value=''">
     Add hero
   </button>
 </div>
 
-<ul class="heroes">
-  <li *ngFor="let hero of heroes">
-    <a routerLink="/detail/{{hero.id}}">
-      <span class="badge">{{hero.id}}</span> {{hero.name}}
-    </a>
-    <button type="button" class="delete" title="Delete hero" (click)="delete(hero)">
-      x
-    </button>
-  </li>
-</ul>
+<div *ngIf="saving" class="mat-spinner-container">
+  <mat-spinner style="width: 50px; height: 50px;"/>
+  <div class="spinner-text">Adding hero...</div>
+</div>
+
+<div *ngIf="!loading && heroes">
+  <ul class="heroes">
+    <li *ngFor="let hero of heroes">
+      <a routerLink="/detail/{{hero.id}}">
+        <span class="badge">{{hero.id}}</span> {{hero.name}}
+      </a>
+      <button type="button" class="delete" title="Delete hero" (click)="delete(hero)">
+        x
+      </button>
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="loading" class="mat-spinner-container">
+  <mat-spinner style="width: 50px; height: 50px;"/>
+  <div class="spinner-text">Heroes are loading...</div>
+</div>
+
