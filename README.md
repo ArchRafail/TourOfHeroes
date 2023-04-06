@@ -1,27 +1,16 @@
-# AngularTourOfHeroes
+# TourOfHeroes
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.4.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Angular project.</br>
+Project created according tutorial https://angular.io/tutorial/tour-of-heroes.</br>
+</br>
+There are few moments that were implemented according best practices:</br>
+* Components stored in a separate folder.</br>
+* Services stored in a separate folder, that is in folder app.</br>
+* Interface that describe the hero stored in folder models that is in folder app.</br>
+</br>
+Delay, that You can see in hero service, is a task from mentor.</br>
+It emulate the delay on responces from a server.</br>
+Loading and saving spinners were added to the project. It is also request from mentor.</br>
+I added unsubsribes to all subscriptions by components as best practices recommends.</br>
+Styles of components are reworked according *scss type of components styles.</br>
+Few styles of tags are reworked to better showing on the screen.</br>
